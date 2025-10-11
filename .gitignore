@@ -1,0 +1,53 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+*.log
+
+# Production
+dist
+build
+.next
+out
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Blockchain
+.anchor
+target/
+**/*.rs.bk
+test-ledger/
+
+# Docker
+docker-data/
+*.log
+
+# Misc
+.turbo
+.cache
