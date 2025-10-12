@@ -1,8 +1,9 @@
-import { Router, Response, NextFunction } from 'express';
+import express, { type Response, type NextFunction, type Router as ExpressRouter } from 'express';
+import { randomUUID } from 'node:crypto';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { AppError } from '../middleware/errorHandler';
 
-const router = Router();
+const router: ExpressRouter = express.Router();
 
 router.use(authenticate);
 
@@ -22,7 +23,7 @@ router.post('/chat', async (req: AuthRequest, res: Response, next: NextFunction)
       throw new AppError(400, 'Message is required');
     }
     
-    const convId = conversationId || crypto.randomUUID();
+    const convId = conversationId || randomUUID();
     const conversation = conversations.get(convId) || [];
     
     // Add user message

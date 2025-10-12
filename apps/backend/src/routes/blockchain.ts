@@ -1,10 +1,11 @@
-import { Router, Response, NextFunction } from 'express';
-import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import express, { type Response, type NextFunction, type Router as ExpressRouter } from 'express';
+import { randomUUID } from 'node:crypto';
+import { Connection, PublicKey } from '@solana/web3.js';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { config } from '../config';
 import { AppError } from '../middleware/errorHandler';
 
-const router = Router();
+const router: ExpressRouter = express.Router();
 const connection = new Connection(config.solanaRpcUrl, 'confirmed');
 
 router.use(authenticate);
@@ -46,7 +47,7 @@ router.post('/identity/create', async (req: AuthRequest, res: Response, next: Ne
     // In production, mint identity NFT via Anchor program
     res.json({
       message: 'Identity NFT created',
-      mint: 'new-nft-address-' + crypto.randomUUID(),
+      mint: `new-nft-address-${randomUUID()}`,
       explorer: `https://explorer.solana.com/address/mock-address?cluster=${config.solanaNetwork}`,
     });
   } catch (error) {

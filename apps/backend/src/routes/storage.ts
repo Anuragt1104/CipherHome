@@ -1,8 +1,9 @@
-import { Router, Response, NextFunction } from 'express';
+import express, { type Response, type NextFunction, type Router as ExpressRouter } from 'express';
+import { randomUUID } from 'node:crypto';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { AppError } from '../middleware/errorHandler';
 
-const router = Router();
+const router: ExpressRouter = express.Router();
 
 // Mock storage data
 interface FileMetadata {
@@ -32,7 +33,7 @@ router.post('/upload', (req: AuthRequest, res: Response, next: NextFunction) => 
       throw new AppError(400, 'Missing required fields: name, size, mimeType');
     }
     
-    const fileId = crypto.randomUUID();
+    const fileId = randomUUID();
     const file: FileMetadata = {
       id: fileId,
       name,

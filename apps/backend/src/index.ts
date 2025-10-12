@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { type Application, type Request, type Response, type NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { config } from './config';
@@ -9,7 +9,7 @@ import aiRoutes from './routes/ai';
 import mediaRoutes from './routes/media';
 import blockchainRoutes from './routes/blockchain';
 
-const app = express();
+const app: Application = express();
 
 // Middleware
 app.use(helmet());

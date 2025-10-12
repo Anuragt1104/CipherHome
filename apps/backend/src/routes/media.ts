@@ -1,7 +1,7 @@
-import { Router, Response, NextFunction } from 'express';
+import express, { type Response, type NextFunction, type Router as ExpressRouter } from 'express';
 import { authenticate, AuthRequest } from '../middleware/auth';
 
-const router = Router();
+const router: ExpressRouter = express.Router();
 
 router.use(authenticate);
 

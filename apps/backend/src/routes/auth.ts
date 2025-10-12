@@ -1,11 +1,12 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import express, { type Request, type Response, type NextFunction, type Router as ExpressRouter } from 'express';
+import { randomUUID } from 'node:crypto';
+import jwt, { SignOptions, Secret } from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { z } from 'zod';
 import { config } from '../config';
 import { AppError } from '../middleware/errorHandler';
 
-const router = Router();
+const router: ExpressRouter = express.Router();
 
 // In-memory user store (replace with database in production)
 const users: Map<string, { id: string; username: string; passwordHash: string; walletAddress?: string }> = new Map();
@@ -30,15 +31,14 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
     }
     
     const passwordHash = await bcrypt.hash(password, 10);
-    const id = crypto.randomUUID();
+    const id = randomUUID();
     
     users.set(username, { id, username, passwordHash, walletAddress });
     
-    const token = jwt.sign(
-      { id, username, walletAddress },
-      config.jwtSecret as jwt.Secret,
-      { expiresIn: config.jwtExpiry }
-    );
+    const payload = { id, username, walletAddress };
+    const secret: Secret = config.jwtSecret;
+    const signOptions: SignOptions = { expiresIn: config.jwtExpiry };
+    const token = jwt.sign(payload, secret, signOptions);
     
     res.status(201).json({
       message: 'User registered successfully',
@@ -67,11 +67,10 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
       throw new AppError(401, 'Invalid credentials');
     }
     
-    const token = jwt.sign(
-      { id: user.id, username: user.username, walletAddress: user.walletAddress },
-      config.jwtSecret as jwt.Secret,
-      { expiresIn: config.jwtExpiry }
-    );
+    const payload = { id: user.id, username: user.username, walletAddress: user.walletAddress };
+    const secret: Secret = config.jwtSecret;
+    const signOptions: SignOptions = { expiresIn: config.jwtExpiry };
+    const token = jwt.sign(payload, secret, signOptions);
     
     res.json({
       message: 'Login successful',

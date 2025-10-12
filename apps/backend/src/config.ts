@@ -1,12 +1,30 @@
 import dotenv from 'dotenv';
+import type { SignOptions } from 'jsonwebtoken';
 
 dotenv.config();
 
-export const config = {
+type Config = {
+  nodeEnv: string;
+  port: number;
+  jwtSecret: string;
+  jwtExpiry: SignOptions['expiresIn'];
+  databaseUrl: string;
+  minioEndpoint: string;
+  minioPort: number;
+  minioAccessKey: string;
+  minioSecretKey: string;
+  ollamaUrl: string;
+  solanaRpcUrl: string;
+  solanaNetwork: string;
+  jellyfinUrl: string;
+  corsOrigin: string;
+};
+
+export const config: Config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '3001', 10),
   jwtSecret: process.env.JWT_SECRET || 'change-me-in-production',
-  jwtExpiry: process.env.JWT_EXPIRY || '7d',
+  jwtExpiry: (process.env.JWT_EXPIRY || '7d') as SignOptions['expiresIn'],
   
   // Database
   databaseUrl: process.env.DATABASE_URL || 'postgresql://localhost:5432/cipherhome',
