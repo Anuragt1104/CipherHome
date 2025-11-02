@@ -386,26 +386,6 @@ MIT License - see [LICENSE](LICENSE)
 
 ---
 
-## 🙏 Acknowledgments
-
-- **DAWN** for building the Black Box and DePIN infrastructure
-- **Solana** for fast, cheap blockchain
-- **Ollama** for democratizing local AI
-- **MinIO** for S3-compatible storage
-- **Jellyfin** for open-source media server
-- **Cypherpunks** who paved the way for digital sovereignty
-
----
-
-## 📧 Contact
-
-- **Project:** CipherHome
-- **Built by:** Alenka Media
-- **For:** DAWN Cypherpunk Hackathon 2025
-- **GitHub:** [github.com/your-username/cipherhome](https://github.com)
-
----
-
 <div align="center">
 
 ### 🌅 Praise the Sun 🌅
